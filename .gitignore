@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+._*
+Thumbs.db
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 临时文件 / 视觉稿 / 部署包
+_tmp/
+_mockup_*.html
+_mockup-*.html
+*.zip
+*.tar.gz
+
+# 构建产物（如果有）
+node_modules/
+dist/
+build/
+.cache/
+
+# 日志
+*.log
+yarn-error.log
+npm-debug.log
+
+# 环境变量 / 密钥
+.env
+.env.local
+.env.*.local
