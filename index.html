@@ -6514,231 +6514,6 @@
     line-height: 1.55;
   }
 
-  /* ============ Photo Wall · 9 张照片拼贴 ============ */
-  .about-me__wall-wrap {
-    margin-top: 32px;
-  }
-  .about-me__wall-head {
-    text-align: center;
-    margin-bottom: 36px;
-  }
-  .about-me__wall-eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.42em;
-    color: rgba(255,225,180,0.55);
-    margin-bottom: 12px;
-  }
-  .about-me__wall-title {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 36px;
-    font-weight: 500;
-    color: #f4eed8;
-    letter-spacing: 0.06em;
-    margin: 0 0 14px;
-    line-height: 1.25;
-  }
-  .about-me__wall-hint {
-    font-size: 11px;
-    color: rgba(245,238,220,0.5);
-    letter-spacing: 0.18em;
-  }
-  .about-me__wall-hint .cn {
-    margin-right: 12px;
-    color: rgba(255,225,180,0.7);
-  }
-  .about-me__wall-hint .en {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    letter-spacing: 0.12em;
-    color: rgba(245,238,220,0.45);
-  }
-
-  /* Bento grid: 12 列 × 4 行（row 高度自适应） */
-  .about-me__wall {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-auto-rows: 220px;
-    gap: 10px;
-    grid-auto-flow: row dense;
-    margin: 0 auto;
-    max-width: 1400px;
-  }
-  .about-me__photo {
-    position: relative;
-    margin: 0;
-    overflow: hidden;
-    border-radius: 12px;
-    border: 1px solid rgba(255,245,210,0.08);
-    background: rgba(28,30,38,0.5);
-    cursor: pointer;
-    transition: transform 420ms cubic-bezier(.2,.8,.2,1),
-                z-index 0s 420ms,
-                opacity 360ms ease,
-                filter 360ms ease,
-                border-color 360ms ease,
-                box-shadow 360ms ease;
-    z-index: 1;
-    filter: saturate(0.92) brightness(0.95);
-    will-change: transform;
-  }
-  .about-me__photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 600ms cubic-bezier(.2,.8,.2,1), filter 600ms ease;
-    filter: contrast(1.02);
-  }
-  .about-me__photo::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 50%, rgba(8,10,14,0.30) 100%);
-    opacity: 0.85;
-    transition: opacity 360ms ease;
-  }
-  .about-me__photo-cap {
-    position: absolute;
-    left: 14px;
-    bottom: 12px;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 6px 12px;
-    background: rgba(8,10,14,0.55);
-    backdrop-filter: blur(8px);
-    border-radius: 8px;
-    border: 1px solid rgba(255,225,180,0.18);
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 360ms ease, transform 360ms ease;
-    pointer-events: none;
-  }
-  .about-me__photo-cap .cn {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 12px;
-    color: #f4eed8;
-    letter-spacing: 0.04em;
-  }
-  .about-me__photo-cap .en {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 10.5px;
-    color: rgba(255,225,180,0.75);
-    letter-spacing: 0.04em;
-  }
-
-  /* Photo wall hover 效果：当前图放大 + 其他 dim */
-  .about-me__wall:hover .about-me__photo:not(:hover) {
-    opacity: 0.42;
-    filter: saturate(0.55) brightness(0.78) blur(0.5px);
-  }
-  .about-me__photo:hover {
-    transform: scale(1.06);
-    z-index: 20;
-    filter: saturate(1.05) brightness(1.02);
-    border-color: rgba(255,225,180,0.42);
-    box-shadow: 0 20px 50px -10px rgba(255,210,160,0.30);
-    transition-delay: 0s;
-  }
-  .about-me__photo:hover img {
-    transform: scale(1.04);
-    filter: contrast(1.05);
-  }
-  .about-me__photo:hover::after {
-    opacity: 0.4;
-  }
-  .about-me__photo:hover .about-me__photo-cap {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Bento 跨度分配 */
-  .about-me__photo.p-1 { grid-column: span 6; grid-row: span 2; }   /* 大图 */
-  .about-me__photo.p-2 { grid-column: span 3; grid-row: span 1; }   /* 中图 */
-  .about-me__photo.p-3 { grid-column: span 3; grid-row: span 3; }   /* 高瘦 */
-  .about-me__photo.p-4 { grid-column: span 6; grid-row: span 1; }   /* 横图 */
-  .about-me__photo.p-5 { grid-column: span 3; grid-row: span 1; }
-  .about-me__photo.p-6 { grid-column: span 3; grid-row: span 1; }
-  .about-me__photo.p-7 { grid-column: span 3; grid-row: span 1; }
-  .about-me__photo.p-8 { grid-column: span 3; grid-row: span 1; }
-  .about-me__photo.p-9 { grid-column: span 9; grid-row: span 1; }   /* 通栏 */
-
-  /* 触屏端（无 hover 能力）：点击切换 caption + 不放大 */
-  @media (hover: none) {
-    .about-me__wall:hover .about-me__photo:not(:hover) {
-      opacity: 1;
-      filter: saturate(0.92) brightness(0.95);
-    }
-    .about-me__photo:hover { transform: none; box-shadow: none; }
-    .about-me__photo.is-shown .about-me__photo-cap {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .about-me__photo.is-shown {
-      border-color: rgba(255,225,180,0.42);
-      filter: saturate(1.05) brightness(1.02);
-    }
-  }
-
-  /* About Me 响应式 */
-  @media (max-width: 1100px) {
-    .about-me { padding: 80px 24px 80px; }
-    .about-me__title { font-size: 56px; }
-    .about-me__grid { grid-template-columns: 1fr 1fr; }
-    .about-me__card--awards { grid-column: span 2; }
-    .about-me__awards { grid-template-columns: repeat(2, 1fr); }
-    .about-me__wall { grid-auto-rows: 180px; gap: 8px; }
-  }
-  @media (max-width: 768px) {
-    .about-me { padding: 60px 20px 60px; }
-    .about-me__title { font-size: 44px; letter-spacing: 0.12em; }
-    .about-me__title-en { font-size: 14px; }
-    .about-me__intro { font-size: 13px; line-height: 1.85; }
-    .about-me__grid { grid-template-columns: 1fr; gap: 14px; }
-    .about-me__card--awards { grid-column: span 1; }
-    .about-me__awards { grid-template-columns: 1fr; }
-    .about-me__wall {
-      grid-template-columns: repeat(6, 1fr);
-      grid-auto-rows: 160px;
-      gap: 6px;
-    }
-    .about-me__photo.p-1 { grid-column: span 6; grid-row: span 2; }
-    .about-me__photo.p-2 { grid-column: span 3; grid-row: span 1; }
-    .about-me__photo.p-3 { grid-column: span 3; grid-row: span 2; }
-    .about-me__photo.p-4 { grid-column: span 6; grid-row: span 1; }
-    .about-me__photo.p-5 { grid-column: span 3; grid-row: span 1; }
-    .about-me__photo.p-6 { grid-column: span 3; grid-row: span 1; }
-    .about-me__photo.p-7 { grid-column: span 6; grid-row: span 1; }
-    .about-me__photo.p-8 { grid-column: span 3; grid-row: span 1; }
-    .about-me__photo.p-9 { grid-column: span 6; grid-row: span 1; }
-    /* 移动端禁用 hover 放大效果 */
-    .about-me__wall:hover .about-me__photo:not(:hover) {
-      opacity: 1;
-      filter: saturate(0.92) brightness(0.95);
-    }
-    .about-me__photo:hover { transform: none; }
-    .about-me__photo-cap { opacity: 1; transform: translateY(0); }
-  }
-  @media (max-width: 540px) {
-    .about-me__title { font-size: 36px; }
-    .about-me__wall { grid-auto-rows: 130px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .about-me__photo,
-    .about-me__photo img {
-      transition: none;
-    }
-    .about-me__wall:hover .about-me__photo:not(:hover) {
-      opacity: 1;
-      filter: none;
-    }
-    .about-me__photo:hover { transform: none; }
-  }
 
   /* ============ Contact Section · 页面底部联系模块 ============ */
   .contact-section {
@@ -6834,55 +6609,10 @@
   .contact-section__email:hover .contact-section__email-arrow {
     transform: translate(3px, -3px);
   }
-  .contact-section__grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(220px, 1fr));
-    gap: 16px;
-    width: 100%;
-    max-width: 640px;
-    margin: 0 auto;
-  }
-  .contact-section__row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 18px 14px;
-    border: 1px solid rgba(255,245,210,0.10);
-    border-radius: 12px;
-    background: rgba(28,30,38,0.45);
-  }
-  .contact-section__label {
-    font-size: 10px;
-    letter-spacing: 0.24em;
-    color: rgba(255,225,180,0.65);
-    text-transform: uppercase;
-  }
-  .contact-section__link {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 16px;
-    color: rgba(244,238,216,0.96);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(255,225,180,0.30);
-    padding-bottom: 2px;
-    transition: color 240ms ease, border-color 240ms ease;
-  }
-  .contact-section__link:hover {
-    color: rgba(255,225,180,1);
-    border-bottom-color: rgba(255,225,180,0.6);
-  }
-  .contact-section__text {
-    font-size: 13px;
-    color: rgba(245,238,220,0.7);
-    letter-spacing: 0.04em;
-  }
-
   /* Contact 响应式 */
   @media (max-width: 768px) {
     .contact-section { padding: 70px 20px 60px; }
     .contact-section__title { font-size: 26px; }
-    .contact-section__grid { grid-template-columns: 1fr; max-width: 360px; }
     .contact-section__email { padding: 18px 28px; }
     .contact-section__email-cn { font-size: 20px; }
   }
@@ -7001,8 +6731,797 @@
     .shelter-portal{transition:none}
   }
 </style>
+
+<style>
+  /* ============ 品牌项目 · 占位卡（yondelabs） ============ */
+.brand-card--pending {
+  position: relative;
+  filter: grayscale(0.35) brightness(0.96);
+  opacity: 0.82;
+  transition: filter .4s ease, opacity .4s ease, transform .4s ease;
+}
+.brand-card--pending:hover {
+  filter: grayscale(0.15) brightness(1);
+  opacity: 1;
+}
+.brand-card--pending .brand-card__cover {
+  filter: blur(0.5px);
+}
+.brand-card--pending .brand-card__arrow {
+  color: rgba(178, 122, 60, 0.55);
+  letter-spacing: .12em;
+}
+.brand-card__pending-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  padding: 6px 12px;
+  background: rgba(255, 248, 232, 0.96);
+  border: 1px solid rgba(178, 122, 60, 0.55);
+  border-radius: 999px;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  font-size: 11.5px;
+  letter-spacing: .12em;
+  text-align: center;
+  line-height: 1.25;
+  color: #4a3520;
+  box-shadow: 0 4px 14px rgba(178, 122, 60, 0.18);
+  pointer-events: none;
+}
+.brand-card__pending-badge em {
+  display: block;
+  font-style: normal;
+  font-size: 9.5px;
+  letter-spacing: .22em;
+  color: #b27a3c;
+  margin-top: 1px;
+}
+
+/* ============ 抽屉 · 占位提示卡（yondelabs） ============ */
+.drawer__pending {
+  padding: 36px 8px 64px;
+  text-align: center;
+  font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  color: #2a1f15;
+}
+.drawer__pending-eyebrow {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid rgba(178, 122, 60, 0.45);
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: #b27a3c;
+  background: rgba(255, 248, 232, 0.6);
+  margin-bottom: 22px;
+}
+.drawer__pending-title {
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 500;
+  line-height: 1.18;
+  color: #1a1612;
+  margin: 0 0 8px;
+  letter-spacing: .01em;
+}
+.drawer__pending-title em {
+  display: inline-block;
+  margin-top: 6px;
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: rgba(178, 122, 60, 0.78);
+}
+.drawer__pending-cn,
+.drawer__pending-en {
+  font-size: 15px;
+  line-height: 1.85;
+  color: rgba(42, 31, 21, 0.82);
+  max-width: 540px;
+  margin: 14px auto 0;
+}
+.drawer__pending-en {
+  font-style: italic;
+  color: rgba(42, 31, 21, 0.55);
+  font-size: 13px;
+}
+.drawer__pending-list {
+  max-width: 520px;
+  margin: 26px auto 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  font-size: 13.5px;
+  line-height: 1.95;
+  color: rgba(42, 31, 21, 0.78);
+}
+.drawer__pending-list li {
+  position: relative;
+  padding: 6px 0 6px 22px;
+  border-bottom: 1px dashed rgba(178, 122, 60, 0.18);
+}
+.drawer__pending-list li::before {
+  content: "✦";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  color: #b27a3c;
+  font-size: 12px;
+}
+.drawer__pending-list li a {
+  color: #c9485b;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 72, 91, 0.35);
+}
+.drawer__pending-tags {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.drawer__pending-tags span {
+  padding: 5px 12px;
+  border: 1px solid rgba(178, 122, 60, 0.35);
+  border-radius: 999px;
+  font-size: 11.5px;
+  letter-spacing: .14em;
+  color: #4a3520;
+  background: rgba(255, 248, 232, 0.55);
+}
+
+  /* ============ 生活切片 · 章节头部 ============ */
+  .about-me__wall-wrap {
+    margin-top: 32px;
+  }
+  .about-me__wall-head {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .about-me__wall-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.42em;
+    color: rgba(255,225,180,0.55);
+    margin-bottom: 12px;
+  }
+  .about-me__wall-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: #f4eed8;
+    letter-spacing: 0.06em;
+    margin: 0 0 14px;
+    line-height: 1.25;
+  }
+  .about-me__wall-hint {
+    font-size: 11px;
+    color: rgba(245,238,220,0.5);
+    letter-spacing: 0.18em;
+  }
+  .about-me__wall-hint .cn {
+    margin-right: 12px;
+    color: rgba(255,225,180,0.7);
+  }
+  .about-me__wall-hint .en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    letter-spacing: 0.12em;
+    color: rgba(245,238,220,0.45);
+  }
+  @media (max-width: 640px) {
+    .about-me__wall-title { font-size: 27px; }
+    .about-me__wall-eyebrow { letter-spacing: 0.28em; }
+  }
+
+  /* ============ 生活切片 · 光标圆环 · 环随鼠标呼吸 ============ */
+/* 设计要点：
+   1. 圆环匀速自转，照片始终保持正向（双重反向旋转技巧）
+   2. 光标附近的照片按「角距离」放大并抬到最前，形成局部隆起
+   3. 角距离用旋转矩阵求解，不读缩放后的 rect，避免缩放反馈抖动
+   4. 照片不带任何可见文字描述
+   5. prefers-reduced-motion：停止自转，静态圆环，不做跟随放大
+   6. 照片数量由 DOM 决定，JS 只读不写结构 —— 后续加图零改代码 */
+.about-me__ring {
+  /* 环半径与照片尺寸：随视口收缩，手机上自动变小 */
+  --r: clamp(132px, 29vmin, 248px);
+  --item-w: clamp(74px, 16.5vmin, 130px);
+  --item-h: calc(var(--item-w) * 1.3);
+  --spin: 72s;
+  position: relative;
+  width: 100%;
+  max-width: 660px;
+  aspect-ratio: 1 / 1;
+  margin: 44px auto 0;
+}
+/* 内圈微光：让中心不至于空洞 */
+.about-me__ring::before {
+  content: "";
+  position: absolute;
+  inset: 20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(126, 158, 112, 0.13), transparent 68%);
+  pointer-events: none;
+}
+.about-me__ring-orbit {
+  position: absolute;
+  inset: 0;
+  animation: ring-spin var(--spin) linear infinite;
+  will-change: transform;
+}
+@keyframes ring-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+/* 轨道细圈：暗示这是一个可转动的环 */
+.about-me__ring-orbit::after {
+  content: "";
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  border: 1px solid rgba(233, 228, 212, 0.09);
+  pointer-events: none;
+}
+.about-me__ring-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--item-w);
+  height: var(--item-h);
+  margin: calc(var(--item-h) / -2) 0 0 calc(var(--item-w) / -2);
+  /* 先绕圆心转到指定角度 → 推到半径上 → 反向转回正向 → 按光标距离缩放 */
+  transform:
+    rotate(var(--a, 0deg))
+    translateY(calc(-1 * var(--r)))
+    rotate(calc(-1 * var(--a, 0deg)))
+    scale(var(--s, 1));
+  transform-origin: center center;
+  z-index: var(--z, 1);
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.about-me__ring-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+  /* 压低饱和与亮度，融进夜色森林；靠近时再提回来 */
+  filter: saturate(0.9) brightness(0.9);
+  box-shadow:
+    0 10px 26px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(233, 228, 212, 0.13) inset;
+  transition: filter 0.35s ease, box-shadow 0.35s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+.about-me__ring-item.is-near img {
+  filter: saturate(1.08) brightness(1.08);
+  box-shadow:
+    0 22px 50px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(244, 238, 216, 0.5) inset,
+    0 0 34px rgba(255, 236, 180, 0.26);
+}
+
+/* ---------- 移动端：缩小而不是换布局 ---------- */
+@media (max-width: 900px) {
+  .about-me__ring {
+    --r: clamp(112px, 30vmin, 200px);
+    --item-w: clamp(64px, 17vmin, 104px);
+    --spin: 88s;
+    margin-top: 34px;
+    max-width: 460px;
+  }
+}
+@media (max-width: 540px) {
+  .about-me__ring {
+    --r: clamp(96px, 29vmin, 150px);
+    --item-w: clamp(54px, 16vmin, 78px);
+    --spin: 96s;
+  }
+}
+
+/* ---------- prefers-reduced-motion：静态圆环，不自转、不跟随 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .about-me__ring-orbit {
+    animation: none !important;
+    transform: none !important;
+  }
+  .about-me__ring-item {
+    transition: none !important;
+  }
+  .about-me__ring-item.is-near img {
+    filter: saturate(0.95) brightness(0.98);
+    box-shadow:
+      0 14px 32px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(244, 238, 216, 0.3) inset;
+  }
+}
+
+/* ============ 背景音乐浮按：玩具店奇妙夜 ============ */
+  .bgm-toggle {
+    position: fixed;
+    right: 26px;
+    bottom: 26px;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 18px 11px 13px;
+    border-radius: 999px;
+    background: rgba(255, 248, 232, 0.94);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(212, 175, 110, 0.5);
+    box-shadow:
+      0 8px 26px rgba(178, 122, 60, 0.18),
+      0 1px 0 rgba(255, 255, 255, 0.7) inset,
+      0 -1px 0 rgba(178, 122, 60, 0.08) inset;
+    font-family: 'Cormorant Garamond', 'Noto Serif SC', serif;
+    color: #4a3520;
+    cursor: pointer;
+    transition: transform .35s cubic-bezier(.2,.8,.2,1),
+                box-shadow .35s ease,
+                background .35s ease,
+                border-color .35s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body.intro-active .bgm-toggle {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .bgm-toggle:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 252, 240, 1);
+    border-color: rgba(178, 122, 60, 0.65);
+    box-shadow:
+      0 12px 34px rgba(178, 122, 60, 0.25),
+      0 1px 0 rgba(255, 255, 255, 0.7) inset;
+  }
+  .bgm-toggle:active { transform: translateY(0); }
+  .bgm-toggle__icon {
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    line-height: 1;
+    color: #b27a3c;
+    transition: color .35s ease, transform .35s ease;
+  }
+  .bgm-toggle.is-playing .bgm-toggle__icon {
+    color: #c9485b;
+    animation: bgm-icon-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes bgm-icon-pulse {
+    0%, 100% { transform: scale(1); text-shadow: 0 0 0 rgba(201,72,91,0); }
+    50%      { transform: scale(1.14); text-shadow: 0 0 14px rgba(201,72,91,.45); }
+  }
+  .bgm-toggle__label {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .bgm-toggle__hint {
+    font-size: 10.5px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(74, 53, 32, .55);
+    white-space: nowrap;
+    border-left: 1px solid rgba(74, 53, 32, .18);
+    padding-left: 10px;
+    margin-left: 2px;
+    line-height: 1;
+  }
+  /* 默认 hint 文案：点击播放 / 点击暂停 */
+  .bgm-toggle:not(.is-playing) .bgm-toggle__hint::before { content: "Click · Play"; }
+  .bgm-toggle.is-playing      .bgm-toggle__hint::before { content: "Click · Pause"; }
+  /* 首次进入提示 */
+  .bgm-toggle.is-first-time .bgm-toggle__hint::before {
+    content: "Welcome ♪ Play";
+    color: #c9485b;
+    font-weight: 600;
+    animation: bgm-hint-blink 2.2s ease-in-out infinite;
+  }
+  @keyframes bgm-hint-blink {
+    0%, 100% { opacity: .55; }
+    50%      { opacity: 1; }
+  }
+  /* 触屏禁用 hover 抬起（避免误触） */
+  @media (hover: none) {
+    .bgm-toggle:hover { transform: none; }
+  }
+  /* 移动端折叠：只显示图标 */
+  @media (max-width: 768px) {
+    .bgm-toggle {
+      right: 16px;
+      bottom: 16px;
+      padding: 11px 13px;
+    }
+    .bgm-toggle__label,
+    .bgm-toggle__hint { display: none; }
+    .bgm-toggle.is-mobile-expanded .bgm-toggle__label,
+    .bgm-toggle.is-mobile-expanded .bgm-toggle__hint { display: inline; }
+  }
+  /* 540 以下更紧凑 */
+  @media (max-width: 540px) {
+    .bgm-toggle { right: 12px; bottom: 12px; padding: 9px 11px; }
+    .bgm-toggle__icon { font-size: 17px; }
+  }
+  /* prefers-reduced-motion：禁用所有动画 */
+  @media (prefers-reduced-motion: reduce) {
+    .bgm-toggle,
+    .bgm-toggle.is-playing .bgm-toggle__icon,
+    .bgm-toggle.is-first-time .bgm-toggle__hint::before {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ============================================================
+     Entry Gate · 进入森林小屋的引入层
+     视频做环境底层 + 鼠标跟随光尘 + 手写体显现 + 点击进入
+     规则：默认静音（不违反「不自动播放 BGM」），环境声需主动开启；
+          prefers-reduced-motion 下退化为静态海报 + 立即可进入。
+     ============================================================ */
+  .intro-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    overflow: hidden;
+    background: #9b94a5;
+    opacity: 0;
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .intro-gate.is-ready { opacity: 1; }
+  .intro-gate.is-leaving {
+    opacity: 0;
+    transition: opacity 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .intro-gate.is-leaving .intro-gate__stage { transform: scale(1.06); }
+  .intro-gate[hidden] { display: none; }
+
+  .intro-gate__stage {
+    position: absolute;
+    inset: 0;
+    background: #273f76 url('assets/intro/concept-v3/expanded/01-luminous-lake.png') center / cover no-repeat;
+    transform: scale(1);
+    transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  .intro-gate__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.01);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+  .intro-gate.is-playing .intro-gate__video { opacity: 1; }
+
+  /* 暗角 + 底部压暗，保证文字对比度 */
+  .intro-gate__vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 88% 82% at 52% 46%, transparent 58%, rgba(61, 50, 68, 0.18) 100%),
+      linear-gradient(0deg, rgba(65, 52, 66, 0.08) 0%, transparent 34%);
+  }
+  .intro-gate__grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: overlay;
+    background-image:
+      radial-gradient(circle at 25% 30%, rgba(255, 255, 255, 0.05) 0, transparent 0.5%),
+      radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.035) 0, transparent 0.5%),
+      radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.025) 0, transparent 0.5%);
+    background-size: 3px 3px, 5px 5px, 7px 7px;
+  }
+
+  #intro-dust-canvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+  }
+
+  /* ---------- 文案区 ---------- */
+  .intro-gate__copy {
+    position: absolute;
+    left: clamp(28px, 7vw, 110px);
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: min(46ch, 52vw);
+    z-index: 3;
+  }
+
+  /* v2：由用户开启序章，保证 Iris 音乐能正常播放 */
+  .intro-gate__start {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: grid;
+    place-items: center;
+    background: rgba(143, 137, 153, 0.10);
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  .intro-gate.is-playing .intro-gate__start {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .intro-gate__start-button {
+    min-width: 176px;
+    padding: 13px 26px 14px;
+    border: 1px solid rgba(82, 67, 80, 0.48);
+    border-radius: 999px;
+    background: rgba(245, 236, 239, 0.62);
+    color: #554a55;
+    font-family: 'Noto Serif SC', 'Songti SC', serif;
+    font-size: 15px;
+    letter-spacing: 0.16em;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 30px rgba(77, 62, 76, 0.10);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+  .intro-gate__start-button:hover {
+    transform: translateY(-2px);
+    background: rgba(250, 243, 245, 0.80);
+    border-color: rgba(82, 67, 80, 0.72);
+  }
+  .intro-gate__start-button:focus-visible {
+    outline: 2px solid rgba(82, 67, 80, 0.62);
+    outline-offset: 4px;
+  }
+  .intro-gate__start-note {
+    display: block;
+    margin-top: 9px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    color: rgba(76, 64, 76, 0.64);
+  }
+  .intro-gate__index {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: rgba(233, 228, 212, 0.5);
+    margin-bottom: 22px;
+  }
+  .intro-gate__en {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    font-size: clamp(30px, 4.2vw, 60px);
+    line-height: 1.24;
+    color: #f4eed8;
+    text-shadow: 0 0 22px rgba(255, 238, 190, 0.35), 0 2px 12px rgba(0, 0, 0, 0.5);
+    margin: 0;
+  }
+  .intro-gate__en .w {
+    display: inline-block;
+    white-space: pre;
+  }
+  /* 逐笔显现：由 CSS 动画时间线驱动，不依赖 JS 定时器，
+     因此标签页被节流/冻结后回来仍会正确走完 */
+  .intro-gate.is-animate .intro-gate__index  { animation: introFadeUp 0.9s ease backwards 0.38s; }
+  .intro-gate.is-animate .intro-gate__brand  { animation: introFadeUp 0.9s ease backwards 0.30s; }
+  .intro-gate.is-animate .intro-gate__skip   { animation: introFadeUp 0.9s ease backwards 0.50s; }
+  .intro-gate.is-animate .intro-gate__zh     { animation: introFadeUp 1.0s ease backwards 1.28s; }
+  .intro-gate.is-animate .intro-gate__enter  { animation: introFadeUp 1.0s ease backwards 1.68s; }
+  .intro-gate.is-animate .intro-gate__en .w {
+    animation: introWordIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    animation-delay: calc(620ms + var(--i, 0) * 78ms);
+  }
+  @keyframes introFadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes introWordIn {
+    from { opacity: 0; filter: blur(6px); transform: translateY(14px) rotate(1.4deg); }
+    to   { opacity: 1; filter: blur(0);   transform: translateY(0) rotate(0); }
+  }
+
+  .intro-gate__zh {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 300;
+    font-size: clamp(14px, 1.15vw, 17px);
+    line-height: 2;
+    letter-spacing: 0.06em;
+    color: rgba(233, 228, 212, 0.72);
+    margin-top: 26px;
+  }
+
+  /* ---------- 进入提示 ---------- */
+  .intro-gate__enter {
+    margin-top: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(244, 238, 216, 0.82);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .intro-gate__enter-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #f4eed8;
+    box-shadow: 0 0 10px rgba(255, 235, 180, 0.9);
+    animation: introPulse 2.2s ease-in-out infinite;
+  }
+  @keyframes introPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5); opacity: 0.45; }
+  }
+
+  /* ---------- 顶栏操作 ---------- */
+  .intro-gate__top {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px clamp(24px, 5vw, 56px);
+  }
+  .intro-gate__brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(72, 60, 72, 0.66);
+    opacity: 0;
+    transition: opacity 0.9s ease 0.3s;
+  }
+  .intro-gate__tools { display: flex; gap: 10px; }
+  .intro-gate__btn {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(76, 62, 74, 0.78);
+    border: 1px solid rgba(76, 62, 74, 0.28);
+    border-radius: 999px;
+    padding: 8px 14px;
+    background: rgba(245, 236, 239, 0.44);
+    backdrop-filter: blur(3px);
+    transition: color 0.3s, border-color 0.3s, background 0.3s;
+  }
+  .intro-gate__btn:hover { color: #4d424d; border-color: rgba(76, 62, 74, 0.62); }
+  .intro-gate__btn[aria-pressed="true"] { color: #f5edef; background: #746170; border-color: #746170; }
+  .intro-gate__sound { opacity: 0; pointer-events: none; }
+  .intro-gate.is-playing .intro-gate__sound { opacity: 1; pointer-events: auto; }
+  .intro-gate__skip {
+    opacity: 0;
+    transition: opacity 0.9s ease, color 0.3s, border-color 0.3s;
+  }
+  .intro-gate.is-ready .intro-gate__skip,
+  .intro-gate.is-ready .intro-gate__brand { opacity: 1; }
+  .intro-gate__btn:focus-visible { outline: 1px solid #f4eed8; outline-offset: 3px; }
+
+  /* ---------- 整体可点击热区 ---------- */
+  .intro-gate__hit {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    cursor: default;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .intro-gate.can-enter .intro-gate__hit { cursor: pointer; }
+  .intro-gate__hit:focus-visible { outline: 1px solid rgba(244, 238, 216, 0.5); outline-offset: -6px; }
+
+  /* ---------- 收敛闪光（点击进入时） ---------- */
+  .intro-gate__flare {
+    position: absolute;
+    top: 50%; right: 26%;
+    width: 10px; height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 50%;
+    background: #fff6dc;
+    box-shadow: 0 0 40px 24px rgba(255, 236, 180, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .intro-gate.is-entering .intro-gate__flare { animation: introFlare 0.85s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+  @keyframes introFlare {
+    0% { opacity: 0; transform: scale(0.2); }
+    30% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(46); }
+  }
+
+  @media (max-width: 760px) {
+    .intro-gate__copy { max-width: 84vw; }
+    .intro-gate__top { padding: 20px 20px; }
+    .intro-gate__enter { margin-top: 30px; letter-spacing: 0.2em; }
+  }
+
+  /* prefers-reduced-motion：静态海报 + 立即可进入，不做任何自动动画 */
+  @media (prefers-reduced-motion: reduce) {
+    .intro-gate,
+    .intro-gate__stage,
+    .intro-gate__en .w,
+    .intro-gate__zh,
+    .intro-gate__index,
+    .intro-gate__enter,
+    .intro-gate__skip,
+    .intro-gate__brand {
+      transition: none !important;
+      animation: none !important;
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+    }
+    .intro-gate.is-entering .intro-gate__flare { animation: none !important; opacity: 0; }
+  }
+</style>
 </head>
 <body>
+
+<!-- ============ Entry Gate · 进入引入层 ============ -->
+<div class="intro-gate" id="introGate" hidden>
+  <div class="intro-gate__stage">
+    <video
+      class="intro-gate__video"
+      id="introVideo"
+      poster="assets/intro/concept-v3/expanded/01-luminous-lake.png"
+      muted
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+      tabindex="-1">
+      <source src="assets/intro/entry-gate-v3.webm" type="video/webm">
+    </video>
+    <div class="intro-gate__vignette"></div>
+    <canvas id="intro-dust-canvas" aria-hidden="true"></canvas>
+    <div class="intro-gate__grain"></div>
+  </div>
+
+  <div class="intro-gate__flare" aria-hidden="true"></div>
+
+  <div class="intro-gate__start">
+    <button class="intro-gate__start-button" id="introStart" type="button">
+      开启序章
+      <span class="intro-gate__start-note">with Iris</span>
+    </button>
+  </div>
+
+  <div class="intro-gate__top">
+    <span class="intro-gate__brand">TANG GE · TG / 2026</span>
+    <div class="intro-gate__tools">
+      <button class="intro-gate__btn intro-gate__sound" id="introSound" type="button" aria-pressed="true"
+              aria-label="关闭或开启 Iris 音乐">Iris / On</button>
+      <button class="intro-gate__btn intro-gate__skip" id="introSkip" type="button">跳过</button>
+    </div>
+  </div>
+
+  <button class="intro-gate__hit" id="introHit" type="button"
+          aria-label="播放作品集序章"></button>
+</div>
 
 <!-- 背景层 -->
 <div class="bg-layer"></div>
@@ -7024,7 +7543,6 @@
   <div class="nav__menu">
     <a href="#works"><span class="cn">作品</span><span class="en">Works</span></a>
     <a href="#thinking"><span class="cn">方法</span><span class="en">Thinking</span></a>
-    <a href="#now"><span class="cn">进行中</span><span class="en">Now</span></a>
     <a href="#about"><span class="cn">关于</span><span class="en">About</span></a>
     <a href="#contact"><span class="cn">联系</span><span class="en">Contact</span></a>
   </div>
@@ -7074,9 +7592,6 @@
         <a href="#works" class="hero__btn hero__btn--primary">
           进入精选作品 <span class="en">Selected Work</span>
         </a>
-        <a href="assets/downloads/resume-general.pdf" download class="hero__btn hero__btn--ghost">
-          下载简历 <span class="en">Download Résumé</span>
-        </a>
       </div>
     </div>
 
@@ -7091,7 +7606,6 @@
       <div class="item active"><span class="num">01</span><span class="label">入口</span></div>
       <div class="item"><span class="num">02</span><span class="label">方向</span></div>
       <div class="item"><span class="num">03</span><span class="label">方法</span></div>
-      <div class="item"><span class="num">04</span><span class="label">进行中</span></div>
     </div>
   </section>
 
@@ -9108,6 +9622,20 @@
           <p class="drawer__p drawer__result-en"></p>
         </section>
         <div class="drawer__tags"></div>
+        <section class="drawer__pending" hidden aria-label="资料整理中">
+          <div class="drawer__pending-eyebrow">CASE · 10</div>
+          <h3 class="drawer__pending-title">yondelabs 品牌营销案例<br><em>Coming&nbsp;Soon</em></h3>
+          <p class="drawer__pending-cn">本案例正在脱敏与整理中：背景、目标、过程、过程、调研、数据与可视化素材将于近期补充。</p>
+          <p class="drawer__pending-en">This case is being de-identified and prepared; background, goals, process, research, data, and visuals will be added soon.</p>
+          <ul class="drawer__pending-list">
+            <li>为保护合作方与项目细节，部分信息在脱敏完成后正式公开。</li>
+            <li>补充完成后将出现在 portfolio 「品牌项目 · Dossier」中并可点开查看完整抽屉。</li>
+            <li>如需提前了解此案例或过往作品，可直接邮件联系：<a href="mailto:1036485782@qq.com">1036485782@qq.com</a></li>
+          </ul>
+          <div class="drawer__pending-tags">
+            <span>即将补充</span><span>Brand&nbsp;Marketing</span><span>De&#8209;identification&nbsp;in&nbsp;progress</span>
+          </div>
+        </section>
         <section class="drawer__study" hidden>
           <!-- 6 段内容由 JS 注入 -->
         </section>
@@ -9134,7 +9662,6 @@
         <span class="about-me__chip">2000 · 浙江</span>
         <span class="about-me__chip">戏剧与影视 · 硕士</span>
         <span class="about-me__chip">录音艺术 · 本科</span>
-        <span class="about-me__chip">CET-6</span>
       </div>
     </div>
 
@@ -9289,82 +9816,48 @@
       </div>
     </div>
 
-    <!-- 9 张照片墙 -->
+    <!-- 光标圆环：照片数量即 DOM 数量，加图无需改代码 -->
     <div class="about-me__wall-wrap">
       <div class="about-me__wall-head">
         <div class="about-me__wall-eyebrow">A LIFE, IN LIGHT · 生活 · 文学 · 音乐 · 身体</div>
-        <h3 class="about-me__wall-title">生活切片 / Nine Frames of a Life</h3>
+        <h3 class="about-me__wall-title">生活切片 / Frames of a Life</h3>
         <div class="about-me__wall-hint">
-          <span class="cn">悬停 · 让一张被看见</span>
-          <span class="en">Hover to enlarge a single frame</span>
+          <span class="cn">移动光标 · 环随你呼吸</span>
+          <span class="en">Move your cursor, the ring responds</span>
         </div>
       </div>
 
-      <div class="about-me__wall" data-photo-wall>
-        <figure class="about-me__photo p-1" data-photo>
+      <div class="about-me__ring" data-photo-ring>
+      <div class="about-me__ring-orbit" data-ring-orbit>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/01-music-shop.jpg" alt="Boîte à Musique 橱窗与复古音乐盒" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">橱窗</span>
-            <span class="en">Boîte à Musique</span>
-          </figcaption>
         </figure>
-        <figure class="about-me__photo p-2" data-photo>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/02-pino-bookstore.jpg" alt="PINO 书店" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">书店</span>
-            <span class="en">PINO Bookstore</span>
-          </figcaption>
         </figure>
-        <figure class="about-me__photo p-3" data-photo>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/03-logic-night.jpg" alt="Logic Pro 夜间录音" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">录音</span>
-            <span class="en">Logic Pro Night</span>
-          </figcaption>
         </figure>
-        <figure class="about-me__photo p-4" data-photo>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/04-yoga-mountain.jpg" alt="大理山前瑜伽一字马" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">山前一字马</span>
-            <span class="en">Splits, Dali</span>
-          </figcaption>
         </figure>
-        <figure class="about-me__photo p-5" data-photo>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/05-campus-walk.jpg" alt="校园林荫道行走" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">林荫</span>
-            <span class="en">A Campus Walk</span>
-          </figcaption>
         </figure>
-        <figure class="about-me__photo p-6" data-photo>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/07-indoor-bend.jpg" alt="室内弓形后弯" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">后弯</span>
-            <span class="en">A Quiet Bend</span>
-          </figcaption>
         </figure>
-        <figure class="about-me__photo p-7" data-photo>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/06-glasses.jpg" alt="玳瑁镜特写" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">目光</span>
-            <span class="en">A Pair of Glasses</span>
-          </figcaption>
         </figure>
-        <figure class="about-me__photo p-8" data-photo>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/08-ipad-reading.jpg" alt="iPad 阅读" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">阅读</span>
-            <span class="en">Reading by iPad</span>
-          </figcaption>
         </figure>
-        <figure class="about-me__photo p-9" data-photo>
+        <figure class="about-me__ring-item" data-photo>
           <img src="assets/about/09-piano-keys.jpg" alt="琴键特写" loading="lazy" />
-          <figcaption class="about-me__photo-cap">
-            <span class="cn">琴键</span>
-            <span class="en">Piano Keys</span>
-          </figcaption>
         </figure>
       </div>
+    </div>
     </div>
   </section>
 
@@ -9376,8 +9869,7 @@
     <div class="contact-section__eyebrow">SECTION 05 · 联系我</div>
     <h2 class="contact-section__title">如果你正在找一位<br/>能把"感受"做成内容的人</h2>
     <p class="contact-section__copy">
-      欢迎把岗位、团队或作品集问题发给我；<br/>
-      我也可以按目标岗位提供更聚焦的简历版本。
+      欢迎把岗位、团队或作品集问题发给我。
     </p>
   </div>
 
@@ -9387,17 +9879,6 @@
       <span class="contact-section__email-en">EMAIL ME · 直接联系我</span>
       <span class="contact-section__email-arrow">↗</span>
     </a>
-
-    <div class="contact-section__grid">
-      <div class="contact-section__row">
-        <span class="contact-section__label">简历 / Résumé</span>
-        <a href="assets/downloads/resume-general.pdf" download class="contact-section__link">下载最新 PDF ↓</a>
-      </div>
-      <div class="contact-section__row">
-        <span class="contact-section__label">语言 / Language</span>
-        <span class="contact-section__text">CET-6 · 中英双语内容均可交付</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -9925,6 +10406,40 @@
         { image: 'assets/research-source/troupe-timeline.png', alt: '十周制作周期时间线', labelZh: '制作周期', labelEn: 'Ten-week production plan' },
         { image: 'assets/research-source/troupe-budget.png', alt: '剧团项目预算模型', labelZh: '预算模型', labelEn: 'Budget model' }
       ]
+    },
+    /* ---- 占位卡 · 资料补充中 ---- */
+    {
+      id: 'yondelabs',
+      num: '10',
+      pending: true,
+      cover: 'assets/fairy.jpeg',
+      groupZh: '品牌营销',
+      groupEn: 'Brand Marketing',
+      year: '2026',
+      titleZh: 'yondelabs · 品牌营销案例',
+      titleEn: 'yondelabs · Brand Marketing Case (Coming Soon)',
+      summaryZh: '本案例正在整理与脱敏中：完整资料（项目背景、目标、过程、数据与交付物）将于近期补充。',
+      summaryEn: 'This case is being de-identified and prepared; background, goals, process, and deliverables will be added soon.',
+      metrics: [
+        { zh: '资料整理中', en: 'in preparation' },
+        { zh: '预计补充',   en: 'coming soon' }
+      ],
+      tags: ['即将补充', 'Brand Marketing'],
+      contextZh: '为保护合作方与项目细节，本案例在脱敏完成后正式公开。',
+      contextEn: 'Full case details will be published after de-identification is complete.',
+      pointsZh: [
+        '案例背景、目标人群、内容策略正在整理中。',
+        '项目过程、关键决策、数据与可视化素材将一并补充。',
+        '脱敏完成后即可点开查看完整抽屉详情。'
+      ],
+      pointsEn: [
+        'Background, target audience, and content strategy in preparation.',
+        'Process, key decisions, data, and visuals will be added together.',
+        'Full drawer will open after de-identification is complete.'
+      ],
+      resultZh: '脱敏与整理完成后将以完整结构补全。',
+      resultEn: 'Will be fully completed once the case is de-identified.',
+      visuals: []
     }
   ];
 
@@ -9944,11 +10459,12 @@
         </g>
       </svg>`;
     grid.innerHTML = brandProjects.map(p => `
-      <article class="brand-card" data-id="${p.id}">
+      <article class="brand-card${p.pending ? ' brand-card--pending' : ''}" data-id="${p.id}">
         <span class="brand-card__deco-star ds-a">✦</span>
         <span class="brand-card__deco-star ds-b">✧</span>
         ${butterflySVG('bf-a')}
         ${butterflySVG('bf-b')}
+        ${p.pending ? '<span class="brand-card__pending-badge">即将补充<br><em>Coming&nbsp;Soon</em></span>' : ''}
         <div class="brand-card__media">
           <div class="brand-card__overlay">
             <span class="brand-card__chip">${p.groupZh}</span>
@@ -9966,7 +10482,7 @@
           </div>
           <div class="brand-card__tags">${p.tags.map(t => `<span>${t}</span>`).join('')}</div>
         </div>
-        <span class="brand-card__arrow">查看详情 →</span>
+        <span class="brand-card__arrow">${p.pending ? '脱敏整理中 ✦' : '查看详情 →'}</span>
       </article>
     `).join('');
 
@@ -10018,8 +10534,20 @@
       document.body.classList.add('drawer-open');
       return;
     }
-    // 还原标准抽屉元素显示（以防之前是研究卷模式）
+    // 占位模式分支：隐藏标准字段，显示"即将补充"提示
+    const pendingSec = drawer.querySelector('.drawer__pending');
+    if (p.pending && pendingSec) {
+      setDrawerStdVisible(false);
+      pendingSec.hidden = false;
+      drawer.querySelector('.drawer__scroll').scrollTop = 0;
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('drawer-open');
+      return;
+    }
+    // 还原标准抽屉元素显示（以防之前是研究卷 / 占位模式）
     setDrawerStdVisible(true);
+    if (pendingSec) pendingSec.hidden = true;
     drawer.querySelector('.drawer__study').hidden = true;
     // 注入内容
     drawer.querySelector('.drawer__group').textContent = p.groupZh + ' · ' + p.groupEn;
@@ -11590,66 +12118,6 @@
     });
   });
 
-  /* ============ About Me · photo wall 入场 + 触屏 caption 切换 ============ */
-  (function photoWall(){
-    const wall = document.querySelector('[data-photo-wall]');
-    if (!wall) return;
-    const photos = Array.from(wall.querySelectorAll('.about-me__photo'));
-    if (!photos.length) return;
-
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const coarse  = window.matchMedia('(pointer: coarse)').matches;
-
-    // Staggered entrance (only if motion allowed + IO available)
-    if (!reduced && 'IntersectionObserver' in window) {
-      photos.forEach((p) => {
-        p.style.opacity = '0';
-        p.style.transform = 'translateY(14px)';
-      });
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target;
-          const idx = photos.indexOf(el);
-          setTimeout(() => {
-            el.style.transition = 'opacity 600ms ease, transform 600ms cubic-bezier(.2,.8,.2,1)';
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-          }, idx * 70);
-          io.unobserve(el);
-        });
-      }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-      photos.forEach((p) => io.observe(p));
-    }
-
-    // Coarse pointer (touch): tap to toggle caption, tap outside to clear
-    if (coarse) {
-      photos.forEach((p) => {
-        p.addEventListener('click', (e) => {
-          e.preventDefault();
-          const wasShown = p.classList.contains('is-shown');
-          photos.forEach((other) => other.classList.remove('is-shown'));
-          if (!wasShown) p.classList.add('is-shown');
-        });
-      });
-      wall.addEventListener('click', (e) => {
-        if (!e.target.closest('.about-me__photo')) {
-          photos.forEach((p) => p.classList.remove('is-shown'));
-        }
-      });
-    }
-
-    // z-index 提升保险（确保 hover 图始终在最上层，不被 transform 兄弟遮挡）
-    photos.forEach((p) => {
-      p.addEventListener('mouseenter', () => {
-        photos.forEach((other) => other.style.zIndex = '1');
-        p.style.zIndex = '20';
-      });
-      p.addEventListener('mouseleave', () => {
-        p.style.zIndex = '';
-      });
-    });
-  })();
 </script>
 
 <!-- ============ 安居协议 · iframe modal ============ -->
@@ -11729,6 +12197,372 @@
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       loading.classList.add('is-done');
     }
+  })();
+</script>
+
+<!-- 背景音乐元素：必须在 JS 之前出现（IIFE 同步执行，需要 DOM 已存在） -->
+<audio id="bgm-audio" loop preload="auto" aria-hidden="true">
+  <source src="assets/sound/toy-shop.mp3" type="audio/mpeg">
+</audio>
+<button class="bgm-toggle" id="bgm-toggle" type="button"
+        aria-label="背景音乐：玩具店奇妙夜（点击播放 / 暂停）">
+  <span class="bgm-toggle__icon" aria-hidden="true">♫</span>
+  <span class="bgm-toggle__label">玩具店奇妙夜</span>
+  <span class="bgm-toggle__hint" aria-hidden="true"></span>
+</button>
+
+<script>
+  /* ============ 背景音乐 · 玩具店奇妙夜 ============
+     进入网站 → 用户首次任意操作（点击 / 触摸 / 滚轮 / 键盘）→ 自动开始播放
+     右下角按钮始终可以暂停 / 继续，状态通过 localStorage 记住
+  */
+  (function bgmInit(){
+    const audio = document.getElementById('bgm-audio');
+    const btn   = document.getElementById('bgm-toggle');
+    if (!audio || !btn) return;
+
+    audio.volume = 0.35;
+
+    const KEY       = 'tangge-bgm-playing';
+    const saved     = localStorage.getItem(KEY);
+    // 默认希望"已开启"。如果从未设置过（首次访问）也视为开启 → 自动播放
+    let isPlaying   = saved === null ? true : saved === '1';
+    // 用户主动 pause 过 → 标记"不要自动播放"，等用户点按钮才播
+    const userPaused = saved === '0';
+
+    // 标记"等用户操作"的 listener 都装上，只触发一次
+    const firstGestureEvents = ['click', 'touchstart', 'keydown', 'wheel', 'scroll', 'pointerdown'];
+    let armed = true;
+
+    function tryAutoplay(){
+      if (!armed) return;
+      if (document.body.classList.contains('intro-active')) return;
+      armed = false;
+      firstGestureEvents.forEach(ev => document.removeEventListener(ev, tryAutoplay, true));
+      if (isPlaying) play(true);
+    }
+    firstGestureEvents.forEach(ev => document.addEventListener(ev, tryAutoplay, { once: false, passive: true, capture: true }));
+
+    function syncUI(){
+      btn.classList.toggle('is-playing', isPlaying);
+      btn.classList.remove('is-first-time'); // 不再闪烁提示
+    }
+
+    function play(silent){
+      audio.play().then(() => {
+        isPlaying = true;
+        localStorage.setItem(KEY, '1');
+        syncUI();
+      }).catch((e) => {
+        if (!silent) console.warn('[bgm] play blocked:', e && e.name);
+        // autoplay 真的被阻止（比如非常严格的浏览器），保持 isPlaying = true 等下次手势
+      });
+    }
+
+    function pause(){
+      audio.pause();
+      isPlaying = false;
+      localStorage.setItem(KEY, '0');
+      syncUI();
+    }
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isPlaying) pause(); else play(false);
+    });
+
+    // 触屏长按展开（移动端默认折叠图标，长按展开看名称）
+    let pressTimer = null;
+    btn.addEventListener('touchstart', () => {
+      pressTimer = setTimeout(() => btn.classList.add('is-mobile-expanded'), 260);
+    }, { passive: true });
+    btn.addEventListener('touchend', () => {
+      if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
+    });
+    btn.addEventListener('touchmove', () => {
+      if (pressTimer) { clearTimeout(pressTimer); pressTimer = null; }
+    }, { passive: true });
+
+    // 如果用户之前主动 pause 过，进入页面后保持暂停（不再自动播放）
+    if (userPaused) {
+      isPlaying = false;
+    }
+
+    syncUI();
+  })();
+
+  /* ============ 生活切片 · 光标圆环 ============
+     照片数量由 DOM 决定：这里只按 index 写入角度 --a，
+     后续直接往 HTML 里加 <figure> 即可，零改 JS。
+     跟手用「角距离」而非 rect 距离：rect 会随缩放变化，形成反馈抖动。 */
+  (function photoRingInit(){
+    const ring = document.querySelector('[data-photo-ring]');
+    const orbit = document.querySelector('[data-ring-orbit]');
+    if (!ring || !orbit) return;
+
+    const items = Array.prototype.slice.call(ring.querySelectorAll('[data-photo]'));
+    if (!items.length) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const n = items.length;
+    const step = 360 / n;
+    items.forEach(function (el, i) { el.style.setProperty('--a', (step * i) + 'deg'); });
+
+    if (reduced) return;   // 静态圆环：不自转、不跟随放大
+
+    // 影响半径（弧度）：约覆盖 ±33°，9 张时正好带动相邻 2–3 张
+    const SPREAD = 1.15;
+    const RADIUS_GATE = 1.75;   // 光标离圆心超过环半径的 1.75 倍就不响应
+
+    let mx = 0, my = 0, inside = false, raf = null, spin = 0, spinDirty = true;
+
+    function readSpin() {
+      // 只读一次矩阵，求出自转角度，避免每帧读 N 次样式
+      const t = getComputedStyle(orbit).transform;
+      if (!t || t === 'none') return 0;
+      try {
+        const m = new DOMMatrixReadOnly(t);
+        return Math.atan2(m.b, m.a);
+      } catch (e) {
+        return 0;
+      }
+    }
+
+    function apply() {
+      raf = null;
+      if (spinDirty) { spin = readSpin(); spinDirty = false; }
+
+      const rr = ring.getBoundingClientRect();
+      const rcx = rr.left + rr.width / 2;
+      const rcy = rr.top + rr.height / 2;
+      const radius = rr.width / 2;
+      const dx = mx - rcx, dy = my - rcy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (!inside || dist > radius * RADIUS_GATE) {
+        for (let i = 0; i < n; i++) reset(items[i]);
+        return;
+      }
+
+      const cur = Math.atan2(dy, dx);
+      const twoPi = Math.PI * 2;
+      for (let i = 0; i < n; i++) {
+        const el = items[i];
+        // 关键：CSS `rotate(a) translateY(-r)` 把图心放到正上方再旋 a，
+        // 叠加轨道自转 s 后的偏移向量是 (r·sin(a+s), −r·cos(a+s))。
+        // 而 atan2(dy, dx) 下的真实屏幕角 = a + s − 90°，这里必须减掉这个直角，
+        // 否则高亮的永远是顺时针偏 90° 的那张图。
+        const itemAngle = (step * i) * Math.PI / 180 + spin - Math.PI / 2;
+        let diff = Math.abs(cur - itemAngle) % twoPi;
+        if (diff > Math.PI) diff = twoPi - diff;
+
+        const t = Math.max(0, 1 - diff / SPREAD);
+        if (t <= 0) { reset(el); continue; }
+
+        // 平滑一下峰值，避免边缘处出现台阶
+        const eased = t * t * (3 - 2 * t);
+        el.style.setProperty('--s', (1 + eased * 0.52).toFixed(3));
+        el.style.setProperty('--z', String(10 + Math.round(eased * 90)));
+        if (eased > 0.42) el.classList.add('is-near');
+        else el.classList.remove('is-near');
+      }
+    }
+
+    function reset(el) {
+      el.style.setProperty('--s', '1');
+      el.style.setProperty('--z', '1');
+      el.classList.remove('is-near');
+    }
+
+    function schedule() {
+      if (raf === null) raf = requestAnimationFrame(apply);
+    }
+
+    function onMove(e) {
+      const t = e.touches ? e.touches[0] : e;
+      mx = t.clientX; my = t.clientY; inside = true;
+      schedule();
+    }
+    function onLeave() { inside = false; schedule(); }
+
+    // 自转角度每帧都在变，所以每帧重算一次矩阵（只 1 次样式读取，开销可忽略）
+    (function trackSpin() {
+      spinDirty = true;
+      if (inside) schedule();
+      requestAnimationFrame(trackSpin);
+    })();
+
+    ring.addEventListener('pointermove', onMove, { passive: true });
+    ring.addEventListener('pointerenter', onMove, { passive: true });
+    ring.addEventListener('pointerleave', onLeave, { passive: true });
+    window.addEventListener('blur', onLeave);
+  })();
+</script>
+
+<script>
+  /* ============================================================
+     Entry Gate · 引入层交互
+     - 用户点击后播放带 Iris 音乐的纸偶漫画序章
+     - 英文欢迎语与「进入作品集」已合成在视频结尾
+     - 播放到结尾后点击画面进入，Esc 或右上角按钮可随时跳过
+     - sessionStorage 记忆：同一会话内返回不重复播放；?nointro 可强制跳过
+     ============================================================ */
+  (function introGate(){
+    const gate  = document.getElementById('introGate');
+    const video = document.getElementById('introVideo');
+    const dust  = document.getElementById('intro-dust-canvas');
+    const hit   = document.getElementById('introHit');
+    const start = document.getElementById('introStart');
+    const skip  = document.getElementById('introSkip');
+    const sound = document.getElementById('introSound');
+    if (!gate || !video || !dust || !hit || !start || !skip) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const KEY = 'tg-intro-seen';
+    const BUST = /[?&]nointro=1/;
+    let started = false;
+    let canEnter = false;
+    let done = false;
+
+    function shouldSkip() {
+      if (reduced) return true;
+      if (BUST.test(location.search)) return true;
+      if (location.hash && location.hash.length > 1) return true;
+      try { if (sessionStorage.getItem(KEY)) return true; } catch (e) {}
+      if (/(search|google|bing|baidu|duckduckgo)/i.test(document.referrer || '')) return true;
+      return false;
+    }
+    if (shouldSkip()) { gate.remove(); return; }
+
+    document.body.classList.add('intro-active');
+
+    const ctx = dust.getContext('2d');
+    let dw, dh, dpr, raf = null;
+    function sizeCanvas() {
+      dw = window.innerWidth;
+      dh = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dust.width = Math.round(dw * dpr);
+      dust.height = Math.round(dh * dpr);
+      dust.style.width = dw + 'px';
+      dust.style.height = dh + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    sizeCanvas();
+
+    const motes = Array.from({ length: 24 }, function () {
+      return {
+        x: Math.random() * dw,
+        y: Math.random() * dh,
+        r: 0.6 + Math.random() * 1.4,
+        vy: -0.08 - Math.random() * 0.16,
+        tw: Math.random() * Math.PI * 2
+      };
+    });
+    function drawMotes() {
+      ctx.clearRect(0, 0, dw, dh);
+      motes.forEach(function (p) {
+        p.y += p.vy;
+        if (p.y < -8) { p.y = dh + 8; p.x = Math.random() * dw; }
+        p.tw += 0.025;
+        const alpha = 0.18 + 0.16 * (Math.sin(p.tw) * 0.5 + 0.5);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(250, 244, 240, ' + alpha.toFixed(3) + ')';
+        ctx.fill();
+      });
+      raf = requestAnimationFrame(drawMotes);
+    }
+
+    function markReadyToEnter() {
+      if (canEnter) return;
+      canEnter = true;
+      gate.classList.add('can-enter');
+      hit.setAttribute('aria-label', '进入作品集');
+    }
+
+    function startIntro() {
+      if (started || done) return;
+      started = true;
+      gate.classList.add('is-playing');
+      video.currentTime = 0;
+      video.muted = false;
+      video.volume = 0.74;
+      hit.setAttribute('aria-label', '序章播放中');
+      video.play().catch(function () {
+        video.muted = true;
+        if (sound) {
+          sound.setAttribute('aria-pressed', 'false');
+          sound.textContent = 'Iris / Off';
+        }
+        video.play().catch(function () {});
+      });
+    }
+
+    function enter() {
+      if (done) return;
+      done = true;
+      try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+      gate.classList.add('is-entering', 'is-leaving');
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+      try { video.pause(); } catch (e) {}
+      document.body.style.overflow = '';
+      setTimeout(function () {
+        gate.hidden = true;
+        document.body.classList.remove('intro-active');
+        window.removeEventListener('resize', sizeCanvas);
+        try { hit.blur(); } catch (e) {}
+      }, 820);
+    }
+
+    gate.hidden = false;
+    document.body.style.overflow = 'hidden';
+    video.pause();
+    video.currentTime = 0;
+    requestAnimationFrame(function () { gate.classList.add('is-ready'); });
+    drawMotes();
+
+    video.addEventListener('timeupdate', function () {
+      if (video.currentTime >= 27.05) markReadyToEnter();
+    });
+    video.addEventListener('ended', markReadyToEnter);
+
+    start.addEventListener('click', function (e) {
+      e.stopPropagation();
+      startIntro();
+    });
+    hit.addEventListener('click', function () {
+      if (!started) startIntro();
+      else if (canEnter) enter();
+    });
+    skip.addEventListener('click', function (e) {
+      e.stopPropagation();
+      enter();
+    });
+
+    if (sound) {
+      sound.addEventListener('click', function (e) {
+        e.stopPropagation();
+        video.muted = !video.muted;
+        sound.setAttribute('aria-pressed', String(!video.muted));
+        sound.textContent = video.muted ? 'Iris / Off' : 'Iris / On';
+      });
+    }
+
+    document.addEventListener('keydown', function onKey(e) {
+      if (gate.hidden) { document.removeEventListener('keydown', onKey); return; }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        enter();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (!started) startIntro();
+        else if (canEnter) enter();
+      }
+    });
+
+    window.addEventListener('resize', sizeCanvas);
+    setTimeout(function () { if (!done) { try { start.focus({ preventScroll: true }); } catch (e) {} } }, 140);
   })();
 </script>
 
