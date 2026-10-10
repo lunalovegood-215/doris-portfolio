@@ -7209,6 +7209,10 @@
   }
   .intro-gate.is-playing .intro-gate__video { opacity: 1; }
 
+  .intro-gate__mobile-enter {
+    display: none;
+  }
+
   /* 暗角 + 底部压暗，保证文字对比度 */
   .intro-gate__vignette {
     position: absolute;
@@ -7294,6 +7298,16 @@
     font-style: italic;
     letter-spacing: 0.08em;
     color: rgba(76, 64, 76, 0.64);
+  }
+  .intro-gate__start-button:disabled {
+    cursor: wait;
+  }
+  .intro-gate.is-loading .intro-gate__start-button {
+    animation: introLoadingPulse 1.7s ease-in-out infinite;
+  }
+  @keyframes introLoadingPulse {
+    0%, 100% { opacity: 0.74; transform: scale(0.985); }
+    50% { opacity: 1; transform: scale(1); }
   }
   .intro-gate__index {
     font-family: 'Cormorant Garamond', serif;
@@ -7454,10 +7468,81 @@
     100% { opacity: 0; transform: scale(46); }
   }
 
-  @media (max-width: 760px) {
+  @media (max-width: 900px) {
+    .intro-gate {
+      min-height: 100dvh;
+      background: #273f76;
+    }
+    .intro-gate__video {
+      object-fit: contain;
+      transform: none;
+      background: transparent;
+    }
     .intro-gate__copy { max-width: 84vw; }
-    .intro-gate__top { padding: 20px 20px; }
+    .intro-gate__top {
+      padding: calc(14px + env(safe-area-inset-top)) 14px 14px;
+    }
+    .intro-gate__brand { display: none; }
+    .intro-gate__tools { margin-left: auto; }
+    .intro-gate__btn {
+      min-height: 38px;
+      padding: 9px 13px;
+      background: rgba(47, 47, 74, 0.52);
+      border-color: rgba(239, 232, 244, 0.34);
+      color: rgba(249, 243, 248, 0.90);
+      backdrop-filter: none;
+    }
+    .intro-gate__grain {
+      opacity: 0.08;
+      mix-blend-mode: normal;
+    }
+    #intro-dust-canvas { opacity: 0.12; }
+    .intro-gate__start {
+      background: rgba(34, 43, 75, 0.08);
+    }
+    .intro-gate__start-button {
+      min-width: 188px;
+      min-height: 54px;
+      padding: 14px 26px 15px;
+      background: rgba(246, 239, 245, 0.82);
+      backdrop-filter: none;
+    }
+    .intro-gate__mobile-enter {
+      position: absolute;
+      left: 50%;
+      bottom: calc(28px + env(safe-area-inset-bottom));
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 168px;
+      min-height: 46px;
+      padding: 11px 20px;
+      border: 1px solid rgba(240, 234, 246, 0.55);
+      border-radius: 999px;
+      background: rgba(50, 44, 72, 0.62);
+      color: #f5eff7;
+      font-family: 'Noto Serif SC', serif;
+      font-size: 14px;
+      letter-spacing: 0.14em;
+      opacity: 0;
+      transform: translate(-50%, 10px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+    }
+    .intro-gate.can-enter .intro-gate__mobile-enter {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
     .intro-gate__enter { margin-top: 30px; letter-spacing: 0.2em; }
+  }
+
+  @media (max-width: 900px) and (orientation: portrait) {
+    .intro-gate__stage {
+      background-image: url('assets/intro/entry-gate-v3-mobile-poster.jpg');
+      background-position: center;
+      background-size: cover;
+    }
   }
 
   /* prefers-reduced-motion：静态海报 + 立即可进入，不做任何自动动画 */
@@ -7491,9 +7576,13 @@
       poster="assets/intro/concept-v3/expanded/01-luminous-lake.png"
       muted
       playsinline
-      preload="auto"
+      preload="metadata"
       aria-hidden="true"
       tabindex="-1">
+      <source src="assets/intro/entry-gate-v3-mobile.mp4" type="video/mp4"
+              media="(max-width: 900px) and (orientation: portrait)">
+      <source src="assets/intro/entry-gate-v3-mobile-landscape.mp4" type="video/mp4"
+              media="(max-width: 900px)">
       <source src="assets/intro/entry-gate-v3.webm" type="video/webm">
     </video>
     <div class="intro-gate__vignette"></div>
@@ -7505,7 +7594,7 @@
 
   <div class="intro-gate__start">
     <button class="intro-gate__start-button" id="introStart" type="button">
-      开启序章
+      <span class="intro-gate__start-label">开启序章</span>
       <span class="intro-gate__start-note">with Iris</span>
     </button>
   </div>
@@ -7518,6 +7607,8 @@
       <button class="intro-gate__btn intro-gate__skip" id="introSkip" type="button">跳过</button>
     </div>
   </div>
+
+  <div class="intro-gate__mobile-enter" aria-hidden="true">进入作品集</div>
 
   <button class="intro-gate__hit" id="introHit" type="button"
           aria-label="播放作品集序章"></button>
@@ -12413,16 +12504,26 @@
     const dust  = document.getElementById('intro-dust-canvas');
     const hit   = document.getElementById('introHit');
     const start = document.getElementById('introStart');
+    const startLabel = start && start.querySelector('.intro-gate__start-label');
+    const startNote = start && start.querySelector('.intro-gate__start-note');
     const skip  = document.getElementById('introSkip');
     const sound = document.getElementById('introSound');
     if (!gate || !video || !dust || !hit || !start || !skip) return;
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const mobile = window.matchMedia('(max-width: 900px)').matches;
+    const portraitMobile = window.matchMedia('(max-width: 900px) and (orientation: portrait)').matches;
     const KEY = 'tg-intro-seen';
     const BUST = /[?&]nointro=1/;
     let started = false;
     let canEnter = false;
     let done = false;
+    let failed = false;
+    let loadTimer = null;
+
+    if (portraitMobile) {
+      video.poster = 'assets/intro/entry-gate-v3-mobile-poster.jpg';
+    }
 
     function shouldSkip() {
       if (reduced) return true;
@@ -12441,7 +12542,7 @@
     function sizeCanvas() {
       dw = window.innerWidth;
       dh = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1.25 : 2);
       dust.width = Math.round(dw * dpr);
       dust.height = Math.round(dh * dpr);
       dust.style.width = dw + 'px';
@@ -12450,7 +12551,7 @@
     }
     sizeCanvas();
 
-    const motes = Array.from({ length: 24 }, function () {
+    const motes = Array.from({ length: mobile ? 10 : 24 }, function () {
       return {
         x: Math.random() * dw,
         y: Math.random() * dh,
@@ -12484,11 +12585,20 @@
     function startIntro() {
       if (started || done) return;
       started = true;
-      gate.classList.add('is-playing');
+      gate.classList.add('is-loading');
+      start.disabled = true;
+      if (startLabel) startLabel.textContent = '正在载入湖光';
+      if (startNote) startNote.textContent = mobile ? '手机轻量版' : 'with Iris';
       video.currentTime = 0;
       video.muted = false;
       video.volume = 0.74;
       hit.setAttribute('aria-label', '序章播放中');
+      loadTimer = setTimeout(function () {
+        if (!gate.classList.contains('is-playing') && !failed) {
+          if (startLabel) startLabel.textContent = '网络较慢，继续载入中';
+          if (startNote) startNote.textContent = '也可点击右上角跳过';
+        }
+      }, 7000);
       video.play().catch(function () {
         video.muted = true;
         if (sound) {
@@ -12499,9 +12609,34 @@
       });
     }
 
+    function onPlaying() {
+      if (loadTimer) { clearTimeout(loadTimer); loadTimer = null; }
+      gate.classList.remove('is-loading');
+      gate.classList.add('is-playing');
+      if (mobile && raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+        ctx.clearRect(0, 0, dw, dh);
+      }
+    }
+
+    function onVideoError() {
+      if (done) return;
+      failed = true;
+      if (loadTimer) { clearTimeout(loadTimer); loadTimer = null; }
+      gate.classList.remove('is-loading');
+      gate.classList.add('has-error');
+      start.disabled = false;
+      if (startLabel) startLabel.textContent = '视频暂时无法载入';
+      if (startNote) startNote.textContent = '点击直接进入作品集';
+      markReadyToEnter();
+      hit.setAttribute('aria-label', '进入作品集');
+    }
+
     function enter() {
       if (done) return;
       done = true;
+      if (loadTimer) { clearTimeout(loadTimer); loadTimer = null; }
       try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
       gate.classList.add('is-entering', 'is-leaving');
       if (raf) { cancelAnimationFrame(raf); raf = null; }
@@ -12525,11 +12660,14 @@
     video.addEventListener('timeupdate', function () {
       if (video.currentTime >= 27.05) markReadyToEnter();
     });
+    video.addEventListener('playing', onPlaying);
+    video.addEventListener('error', onVideoError);
     video.addEventListener('ended', markReadyToEnter);
 
     start.addEventListener('click', function (e) {
       e.stopPropagation();
-      startIntro();
+      if (failed) enter();
+      else startIntro();
     });
     hit.addEventListener('click', function () {
       if (!started) startIntro();
