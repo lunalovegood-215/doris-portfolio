@@ -12658,7 +12658,8 @@
     drawMotes();
 
     video.addEventListener('timeupdate', function () {
-      if (video.currentTime >= 27.05) markReadyToEnter();
+      const enterAt = Number.isFinite(video.duration) ? Math.max(0, video.duration - 2.1) : 22.9;
+      if (video.currentTime >= enterAt) markReadyToEnter();
     });
     video.addEventListener('playing', onPlaying);
     video.addEventListener('error', onVideoError);
